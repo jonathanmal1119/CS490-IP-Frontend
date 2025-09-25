@@ -6,17 +6,35 @@ async function http(path, init) {
     headers: {
       'Content-Type': 'application/json',
     },
+    mode: 'cors',
+    credentials: 'include',
     ...init,
   }
 
-  const response = await fetch(url, config)
-  const result = await response.json()
+  try {
+    const response = await fetch(url, config)
+    
+    if (!response.ok) {
+      // Try to get error message from response
+      let errorMessage = 'Request failed'
+      try {
+        const errorData = await response.json()
+        errorMessage = errorData.error || errorMessage
+      } catch {
+        errorMessage = `HTTP ${response.status}: ${response.statusText}`
+      }
+      throw new Error(errorMessage)
+    }
 
-  if (!response.ok) {
-    throw new Error(result.error || 'Request failed')
+    const result = await response.json()
+    return result.data
+  } catch (error) {
+    // Handle network errors, CORS errors, etc.
+    if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      throw new Error('Unable to connect to server. Please ensure the backend is running on http://localhost:4001')
+    }
+    throw error
   }
-
-  return result.data
 }
 
 export const api = {
