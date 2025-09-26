@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import { api } from './api'
 import FilmDetails from './FilmDetails'
+import ActorDetails from './ActorDetails'
 import './App.css'
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/film/:id" element={<FilmDetails />} />
+      <Route path="/actor/:id" element={<ActorDetails />} />
     </Routes>
   )
 }
@@ -48,6 +50,10 @@ function HomePage() {
 
   const viewDetails = (filmId) => {
     navigate(`/film/${filmId}`)
+  }
+
+  const viewActorDetails = (actorId) => {
+    navigate(`/actor/${actorId}`)
   }
 
   useEffect(() => {
@@ -124,6 +130,9 @@ function HomePage() {
                   <p className="film-count">
                     <strong>{actor.filmCount}</strong> films
                   </p>
+                  <button className="view-details-btn" onClick={() => viewActorDetails(actor.id)}>
+                    View Details
+                  </button>
                 </div>
               ))}
             </div>

@@ -39,4 +39,5 @@ export const api = {
   getTopRentedFilms: (limit = 5) => http(`/films/top?limit=${limit}`),
   getTopActors: (limit = 5) => http(`/actors/top?limit=${limit}`),
   getFilmDetails: (id) => http(`/films/${id}`),
+  getActorDetails: (id) => http(`/actors/${id}`),
 }
