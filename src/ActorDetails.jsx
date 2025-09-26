@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import { api } from './api'
 import './App.css'
 
 function ActorDetails() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const location = useLocation()
   const [actorDetails, setActorDetails] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -28,7 +29,25 @@ function ActorDetails() {
   }, [id])
 
   const goBack = () => {
-    navigate('/')
+    // Check if we came from the films page
+    const fromFilms = location.state?.from === 'films' || 
+                     document.referrer.includes('/films') ||
+                     sessionStorage.getItem('lastPage') === '/films'
+    
+    if (fromFilms) {
+      navigate('/films')
+    } else {
+      navigate('/')
+    }
+  }
+
+  // Determine back button text based on where we came from
+  const getBackButtonText = () => {
+    const fromFilms = location.state?.from === 'films' || 
+                     document.referrer.includes('/films') ||
+                     sessionStorage.getItem('lastPage') === '/films'
+    
+    return fromFilms ? '← Back to Films' : '← Back to Homepage'
   }
 
   if (loading) {
@@ -61,7 +80,7 @@ function ActorDetails() {
     <div className="app">
       <header className="app-header">
         <h1>Sakila Film Database</h1>
-        <button onClick={goBack} className="back-button">← Back to Actors</button>
+        <button onClick={goBack} className="back-button">{getBackButtonText()}</button>
       </header>
 
       <main className="main-content">

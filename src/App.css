@@ -26,10 +26,19 @@ body {
 .app-header {
   background: rgba(13, 20, 33, 0.95);
   backdrop-filter: blur(10px);
-  text-align: center;
   padding: 2rem 1rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
   border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .app-header h1 {
@@ -39,7 +48,38 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 0.5rem;
+  margin: 0;
+}
+
+.header-nav {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-button {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.nav-button.active {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.nav-button.active:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
 }
 
 .app-header p {
@@ -558,5 +598,297 @@ body {
   .films-grid {
     grid-template-columns: 1fr;
     gap: 1rem;
+  }
+}
+
+/* Films Page Styles */
+.films-page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.search-section {
+  background: rgba(26, 26, 46, 0.8);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  margin-bottom: 2rem;
+}
+
+.search-section h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #e1e5e9;
+  text-align: center;
+}
+
+.search-form {
+  width: 100%;
+}
+
+.search-inputs {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.search-type-select {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color: #e1e5e9;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  min-width: 150px;
+}
+
+.search-type-select:focus {
+  outline: none;
+  border-color: rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.search-input {
+  flex: 1;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color: #e1e5e9;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  min-width: 200px;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: rgba(59, 130, 246, 0.5);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+.search-button {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.search-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.search-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.clear-button {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 100px;
+}
+
+.clear-button:hover {
+  background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+  transform: translateY(-1px);
+}
+
+.results-section {
+  background: rgba(26, 26, 46, 0.8);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.results-section h3 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #e1e5e9;
+  text-align: center;
+}
+
+.results-count {
+  color: #3b82f6;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+/* Netflix-style layout */
+.netflix-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.category-row {
+  margin-bottom: 2rem;
+}
+
+.category-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #e1e5e9;
+  margin-bottom: 1rem;
+  padding-left: 0.5rem;
+}
+
+.horizontal-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.5rem 0;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.films-row {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  min-width: max-content;
+}
+
+.netflix-film-card {
+  flex: 0 0 200px;
+  height: 280px;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  border-radius: 12px;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.netflix-film-card:hover {
+  transform: scale(1.05);
+  border-color: rgba(59, 130, 246, 0.5);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+  z-index: 10;
+}
+
+.film-poster {
+  padding: 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+}
+
+.film-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.film-genre {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  align-self: flex-start;
+}
+
+.film-year {
+  color: #9ca3af;
+  font-size: 0.85rem;
+  margin-top: auto;
+}
+
+.no-results {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 1.2rem;
+  padding: 2rem;
+  background: rgba(26, 26, 46, 0.5);
+  border-radius: 15px;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+.error-message {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .app-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .search-inputs {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-type-select,
+  .search-input,
+  .search-button,
+  .clear-button {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  /* Netflix layout responsive */
+  .netflix-film-card {
+    flex: 0 0 150px;
+    height: 220px;
+  }
+  
+  .film-title {
+    font-size: 0.9rem;
+  }
+  
+  .film-genre {
+    font-size: 0.7rem;
   }
 }

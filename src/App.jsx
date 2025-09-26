@@ -3,6 +3,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import { api } from './api'
 import FilmDetails from './FilmDetails'
 import ActorDetails from './ActorDetails'
+import FilmsPage from './FilmsPage'
 import './App.css'
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/films" element={<FilmsPage />} />
       <Route path="/film/:id" element={<FilmDetails />} />
       <Route path="/actor/:id" element={<ActorDetails />} />
     </Routes>
@@ -49,7 +51,7 @@ function HomePage() {
   const navigate = useNavigate()
 
   const viewDetails = (filmId) => {
-    navigate(`/film/${filmId}`)
+    navigate(`/film/${filmId}`, { state: { from: 'homepage' } })
   }
 
   const viewActorDetails = (actorId) => {
@@ -96,7 +98,23 @@ function HomePage() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Sakila Film Database</h1>
+        <div className="header-content">
+          <h1>Sakila Film Database</h1>
+          <nav className="header-nav">
+            <button 
+              className="nav-button active" 
+              onClick={() => navigate('/')}
+            >
+              Homepage
+            </button>
+            <button 
+              className="nav-button" 
+              onClick={() => navigate('/films')}
+            >
+              Films
+            </button>
+          </nav>
+        </div>
       </header>
 
       <main className="main-content">
