@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import { api } from './api'
+import FilmDetails from './FilmDetails'
 import './App.css'
 
 function App() {
@@ -7,6 +9,46 @@ function App() {
   const [topActors, setTopActors] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        setLoading(true)
+        
+        const filmsResult = await api.getTopRentedFilms(5)
+        const actorsResult = await api.getTopActors(5)
+        
+        setTopFilms(filmsResult)
+        setTopActors(actorsResult)
+      } catch (e) {
+        setError(e?.message || 'Failed to load data')
+        console.error('Error loading data:', e)
+      } finally {
+        setLoading(false)
+      }
+    }
+    
+    loadData()
+  }, [])
+
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/film/:id" element={<FilmDetails />} />
+    </Routes>
+  )
+}
+
+function HomePage() {
+  const [topFilms, setTopFilms] = useState([])
+  const [topActors, setTopActors] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const navigate = useNavigate()
+
+  const viewDetails = (filmId) => {
+    navigate(`/film/${filmId}`)
+  }
 
   useEffect(() => {
     async function loadData() {
@@ -65,6 +107,9 @@ function App() {
                     <strong>{film.rentalCount}</strong> rentals
                   </p>
                   <p className="description">{film.description}</p>
+                  <button className="view-details-btn" onClick={() => viewDetails(film.id)}>
+                    View Details
+                  </button>
                 </div>
               ))}
             </div>
