@@ -644,12 +644,37 @@ body {
   border-radius: 8px;
   font-size: 1rem;
   min-width: 150px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e1e5e9' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+}
+
+.search-type-select:hover {
+  border-color: rgba(59, 130, 246, 0.4);
+  background: linear-gradient(135deg, #334155 0%, #475569 100%);
 }
 
 .search-type-select:focus {
   outline: none;
   border-color: rgba(59, 130, 246, 0.5);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background: linear-gradient(135deg, #334155 0%, #475569 100%);
+}
+
+.search-type-select option {
+  background: #1e293b;
+  color: #e1e5e9;
+  padding: 0.5rem;
+  border: none;
+}
+
+.search-type-select option:hover {
+  background: #334155;
 }
 
 .search-input {
@@ -876,6 +901,12 @@ body {
   .clear-button {
     min-width: auto;
     width: 100%;
+  }
+  
+  .search-type-select {
+    padding-right: 2.5rem;
+    background-size: 0.8rem;
+    background-position: right 0.5rem center;
   }
   
   /* Netflix layout responsive */
