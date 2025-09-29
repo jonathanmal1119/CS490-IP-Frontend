@@ -77,78 +77,71 @@ function FilmDetails() {
   }
 
   return (
-    <div className="app">
-      <header className="app-header">
-        <h1>Sakila Film Database</h1>
-        <button onClick={goBack} className="back-button">{getBackButtonText()}</button>
-      </header>
-
-      <main className="main-content">
-        <div className="film-details-page">
-          <div className="film-details-card">
+    <main className="main-content">
+      <div className="film-details-page">
+        <div className="film-details-card">
+          <div className="details-header">
+            <button onClick={goBack} className="back-button">{getBackButtonText()}</button>
             <h2 className="film-title">{filmDetails.title}</h2>
-            
-            <div className="film-info-grid">
-              <div className="info-section">
-                <h3>Film Information</h3>
-                <div className="info-item">
-                  <strong>Description:</strong>
-                  <p>{filmDetails.description}</p>
-                </div>
-                <div className="info-item">
-                  <strong>Release Year:</strong>
-                  <span>{filmDetails.releaseYear}</span>
-                </div>
-                <div className="info-item">
-                  <strong>Rating:</strong>
-                  <span>{filmDetails.rating}</span>
-                </div>
-                <div className="info-item">
-                  <strong>Length:</strong>
-                  <span>{filmDetails.length} minutes</span>
-                </div>
-                <div className="info-item">
-                  <strong>Category:</strong>
-                  <span className="category-tag">{filmDetails.category}</span>
-                </div>
-                <div className="info-item">
-                  <strong>Language:</strong>
-                  <span>{filmDetails.language}</span>
-                </div>
+          </div>
+          
+          <div className="film-info-grid">
+            <div className="info-section">
+              <h3>Film Information</h3>
+              <div className="info-item">
+                <strong>Description:</strong>
+                <p>{filmDetails.description}</p>
               </div>
-
-              <div className="info-section">
-                <h3>Rental Information</h3>
-                <div className="info-item">
-                  <strong>Rental Rate:</strong>
-                  <span>${filmDetails.rentalRate}</span>
-                </div>
-                <div className="info-item">
-                  <strong>Rental Duration:</strong>
-                  <span>{filmDetails.rentalDuration} days</span>
-                </div>
-                <div className="info-item">
-                  <strong>Replacement Cost:</strong>
-                  <span>${filmDetails.replacementCost}</span>
-                </div>
+              <div className="info-item">
+                <strong>Release Year:</strong>
+                <span>{filmDetails.releaseYear}</span>
+              </div>
+              <div className="info-item">
+                <strong>Rating:</strong>
+                <span>{filmDetails.rating}</span>
+              </div>
+              <div className="info-item">
+                <strong>Length:</strong>
+                <span>{filmDetails.length} minutes</span>
+              </div>
+              <div className="info-item">
+                <strong>Category:</strong>
+                <span className="category-tag">{filmDetails.category}</span>
+              </div>
+              <div className="info-item">
+                <strong>Language:</strong>
+                <span>{filmDetails.language}</span>
               </div>
             </div>
 
-            <div className="actors-section">
-              <h3>Cast</h3>
-              <div className="actors-list">
-                {filmDetails.actors.map((actor) => (
-                  <span key={actor.id} className="actor-tag">{actor.name}</span>
-                ))}
+            <div className="info-section">
+              <h3>Rental Information</h3>
+              <div className="info-item">
+                <strong>Rental Rate:</strong>
+                <span>${filmDetails.rentalRate}</span>
+              </div>
+              <div className="info-item">
+                <strong>Rental Duration:</strong>
+                <span>{filmDetails.rentalDuration} days</span>
+              </div>
+              <div className="info-item">
+                <strong>Replacement Cost:</strong>
+                <span>${filmDetails.replacementCost}</span>
               </div>
             </div>
           </div>
-        </div>
-      </main>
 
-      <footer className="app-footer">
-      </footer>
-    </div>
+          <div className="actors-section">
+            <h3>Cast</h3>
+            <div className="actors-list">
+              {filmDetails.actors.map((actor) => (
+                <span key={actor.id} className="actor-tag">{actor.name}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   )
 }
 

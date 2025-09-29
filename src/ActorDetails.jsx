@@ -77,55 +77,48 @@ function ActorDetails() {
   }
 
   return (
-    <div className="app">
-      <header className="app-header">
-        <h1>Sakila Film Database</h1>
-        <button onClick={goBack} className="back-button">{getBackButtonText()}</button>
-      </header>
-
-      <main className="main-content">
-        <div className="actor-details-page">
-          <div className="actor-details-card">
+    <main className="main-content">
+      <div className="actor-details-page">
+        <div className="actor-details-card">
+          <div className="details-header">
+            <button onClick={goBack} className="back-button">{getBackButtonText()}</button>
             <h2 className="actor-title">{actorDetails.name}</h2>
-            
-            <div className="actor-info-section">
-              <h3>Actor Information</h3>
-              <div className="info-item">
-                <strong>First Name:</strong>
-                <span>{actorDetails.first_name}</span>
-              </div>
-              <div className="info-item">
-                <strong>Last Name:</strong>
-                <span>{actorDetails.last_name}</span>
-              </div>
-              <div className="info-item">
-                <strong>Total Films:</strong>
-                <span>{actorDetails.films.length} films</span>
-              </div>
+          </div>
+          
+          <div className="actor-info-section">
+            <h3>Actor Information</h3>
+            <div className="info-item">
+              <strong>First Name:</strong>
+              <span>{actorDetails.first_name}</span>
             </div>
+            <div className="info-item">
+              <strong>Last Name:</strong>
+              <span>{actorDetails.last_name}</span>
+            </div>
+            <div className="info-item">
+              <strong>Total Films:</strong>
+              <span>{actorDetails.films.length} films</span>
+            </div>
+          </div>
 
-            <div className="films-section">
-              <h3>Top 5 Recent Films</h3>
-              <div className="films-grid">
-                {actorDetails.films.map((film) => (
-                  <div key={film.id} className="film-card-small">
-                    <h4>{film.title}</h4>
-                    <p className="film-year">{film.releaseYear}</p>
-                    <p className="film-category">{film.category}</p>
-                    <p className="film-rating">Rating: {film.rating}</p>
-                    <p className="film-length">{film.length} min</p>
-                    <p className="film-description">{film.description}</p>
-                  </div>
-                ))}
-              </div>
+          <div className="films-section">
+            <h3>Top 5 Recent Films</h3>
+            <div className="films-grid">
+              {actorDetails.films.map((film) => (
+                <div key={film.id} className="film-card-small">
+                  <h4>{film.title}</h4>
+                  <p className="film-year">{film.releaseYear}</p>
+                  <p className="film-category">{film.category}</p>
+                  <p className="film-rating">Rating: {film.rating}</p>
+                  <p className="film-length">{film.length} min</p>
+                  <p className="film-description">{film.description}</p>
+                </div>
+              ))}
             </div>
           </div>
         </div>
-      </main>
-
-      <footer className="app-footer">
-      </footer>
-    </div>
+      </div>
+    </main>
   )
 }
 

@@ -367,7 +367,7 @@ body {
 }
 
 .film-title {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   font-weight: 700;
   color: #f1f5f9;
   margin-bottom: 2rem;
@@ -376,6 +376,29 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.details-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.details-header .back-button {
+  margin-top: 0;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  align-self: flex-start;
+}
+
+.details-header .film-title,
+.details-header .actor-title {
+  margin-bottom: 0;
+  text-align: center;
+  width: 100%;
+  font-size: 3.5rem !important;
 }
 
 .film-info-grid {
@@ -468,7 +491,7 @@ body {
 }
 
 .actor-title {
-  font-size: 2.5rem;
+  font-size: 3.5rem;
   font-weight: 700;
   color: #f1f5f9;
   margin-bottom: 2rem;
