@@ -4,6 +4,7 @@ import { api } from './api'
 import FilmDetails from './FilmDetails'
 import ActorDetails from './ActorDetails'
 import FilmsPage from './FilmsPage'
+import CustomersPage from './CustomersPage'
 import './App.css'
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
       <Route path="/films" element={<FilmsPage />} />
       <Route path="/film/:id" element={<FilmDetails />} />
       <Route path="/actor/:id" element={<ActorDetails />} />
+      <Route path="/customers" element={<CustomersPage />} />
     </Routes>
   )
 }
@@ -112,6 +114,12 @@ function HomePage() {
               onClick={() => navigate('/films')}
             >
               Films
+            </button>
+            <button 
+              className="nav-button" 
+              onClick={() => navigate('/customers')}
+            >
+              Customers
             </button>
           </nav>
         </div>

@@ -40,6 +40,7 @@ export const api = {
   getTopActors: (limit = 5) => http(`/actors/top?limit=${limit}`),
   getFilmDetails: (id) => http(`/films/${id}`),
   getActorDetails: (id) => http(`/actors/${id}`),
+  getCustomers: (page = 1, limit = 20) => http(`/customers?page=${page}&limit=${limit}`),
   searchFilms: (query, type) => http(`/films/search?query=${encodeURIComponent(query)}&type=${type}`),
   getRecentFilms: (limit = 15) => http(`/films/recent?limit=${limit}`),
 }

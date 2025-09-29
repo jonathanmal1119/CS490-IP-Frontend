@@ -1,0 +1,148 @@
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { api } from './api'
+import './App.css'
+
+function CustomersPage() {
+  const [customers, setCustomers] = useState([])
+  const [pagination, setPagination] = useState({})
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [currentPage, setCurrentPage] = useState(1)
+  const navigate = useNavigate()
+
+  const loadCustomers = async (page = 1) => {
+    try {
+      setLoading(true)
+      setError(null)
+      const data = await api.getCustomers(page, 20)
+      setCustomers(data.customers)
+      setPagination(data.pagination)
+      setCurrentPage(page)
+    } catch (e) {
+      setError(e?.message || 'Failed to load customers')
+      console.error('Error loading customers:', e)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    loadCustomers(1)
+  }, [])
+
+  const goBack = () => {
+    navigate('/')
+  }
+
+  const handlePageChange = (page) => {
+    loadCustomers(page)
+  }
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString()
+  }
+
+  if (loading) {
+    return (
+      <div className="app">
+        <div className="loading">Loading customers...</div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="app">
+        <div className="error">Error: {error}</div>
+        <button onClick={goBack} className="back-button">Go Back</button>
+      </div>
+    )
+  }
+
+  return (
+    <div className="app">
+      <header className="app-header">
+        <h1>Sakila Film Database</h1>
+        <button onClick={goBack} className="back-button">← Back to Home</button>
+      </header>
+
+      <main className="main-content">
+        <div className="customers-page">
+          <div className="customers-header">
+            <h2>Customers</h2>
+            <p className="customers-count">
+              Showing {customers.length} of {pagination.totalCustomers} customers
+            </p>
+          </div>
+
+          <div className="customers-table-container">
+            <table className="customers-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Address</th>
+                  <th>City</th>
+                  <th>Country</th>
+                  <th>Status</th>
+                  <th>Member Since</th>
+                </tr>
+              </thead>
+              <tbody>
+                {customers.map((customer) => (
+                  <tr key={customer.id} className="customer-row">
+                    <td>{customer.id}</td>
+                    <td className="customer-name">
+                      {customer.first_name} {customer.last_name}
+                    </td>
+                    <td>{customer.email}</td>
+                    <td>{customer.address}</td>
+                    <td>{customer.city}</td>
+                    <td>{customer.country}</td>
+                    <td>
+                      <span className={`status-badge ${customer.active ? 'active' : 'inactive'}`}>
+                        {customer.active ? 'Active' : 'Inactive'}
+                      </span>
+                    </td>
+                    <td>{formatDate(customer.create_date)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {pagination.totalPages > 1 && (
+            <div className="pagination">
+              <button
+                className="pagination-btn"
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={!pagination.hasPrev}
+              >
+                ← Previous
+              </button>
+              
+              <div className="pagination-info">
+                Page {pagination.currentPage} of {pagination.totalPages}
+              </div>
+              
+              <button
+                className="pagination-btn"
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={!pagination.hasNext}
+              >
+                Next →
+              </button>
+            </div>
+          )}
+        </div>
+      </main>
+
+      <footer className="app-footer">
+      </footer>
+    </div>
+  )
+}
+
+export default CustomersPage

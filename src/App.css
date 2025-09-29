@@ -923,3 +923,174 @@ body {
     font-size: 0.7rem;
   }
 }
+
+/* Customers Page Styles */
+.customers-page {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.customers-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.customers-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.customers-count {
+  color: #9ca3af;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.customers-table-container {
+  background: rgba(26, 26, 46, 0.8);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  overflow-x: auto;
+}
+
+.customers-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #e1e5e9;
+}
+
+.customers-table th {
+  color: #f1f5f9;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.customers-table th:first-child {
+  border-top-left-radius: 8px;
+}
+
+.customers-table th:last-child {
+  border-top-right-radius: 8px;
+}
+
+.customer-row {
+  border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+  transition: all 0.2s ease;
+}
+
+.customer-row:hover {
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.customer-row td {
+  padding: 1rem;
+  font-size: 0.9rem;
+  vertical-align: middle;
+}
+
+.customer-name {
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-badge.active {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+}
+
+.status-badge.inactive {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  color: white;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: rgba(26, 26, 46, 0.5);
+  border-radius: 15px;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+.pagination-btn {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.pagination-info {
+  color: #e1e5e9;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .customers-table-container {
+    padding: 1rem;
+  }
+  
+  .customers-table th,
+  .customers-table td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.8rem;
+  }
+  
+  .customers-header h2 {
+    font-size: 2rem;
+  }
+  
+  .pagination {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .pagination-btn {
+    width: 100%;
+    max-width: 200px;
+  }
+}
