@@ -44,6 +44,11 @@ export const api = {
     const searchParam = search ? `&search=${encodeURIComponent(search)}` : '';
     return http(`/customers?page=${page}&limit=${limit}${searchParam}`);
   },
+  getCustomerById: (id) => http(`/customers/${id}`),
+  updateCustomer: (id, customerData) => http(`/customers/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(customerData)
+  }),
   searchFilms: (query, type) => http(`/films/search?query=${encodeURIComponent(query)}&type=${type}`),
   getRecentFilms: (limit = 15) => http(`/films/recent?limit=${limit}`),
 }

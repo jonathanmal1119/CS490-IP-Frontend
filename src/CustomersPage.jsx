@@ -57,6 +57,10 @@ function CustomersPage() {
     setCurrentPage(1)
   }
 
+  const handleEditCustomer = (customerId) => {
+    navigate(`/customer/${customerId}/edit`)
+  }
+
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString()
   }
@@ -129,6 +133,7 @@ function CustomersPage() {
                 <th>Country</th>
                 <th>Status</th>
                 <th>Member Since</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -148,6 +153,15 @@ function CustomersPage() {
                     </span>
                   </td>
                   <td>{formatDate(customer.create_date)}</td>
+                  <td>
+                    <button
+                      onClick={() => handleEditCustomer(customer.id)}
+                      className="edit-customer-button"
+                      title="Edit Customer"
+                    >
+                      Edit
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

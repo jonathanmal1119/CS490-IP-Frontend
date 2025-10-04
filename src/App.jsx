@@ -5,6 +5,7 @@ import FilmDetails from './FilmDetails'
 import ActorDetails from './ActorDetails'
 import FilmsPage from './FilmsPage'
 import CustomersPage from './CustomersPage'
+import CustomerEdit from './CustomerEdit'
 import './App.css'
 
 function App() {
@@ -70,6 +71,7 @@ function App() {
         <Route path="/film/:id" element={<FilmDetails />} />
         <Route path="/actor/:id" element={<ActorDetails />} />
         <Route path="/customers" element={<CustomersPage />} />
+        <Route path="/customer/:id/edit" element={<CustomerEdit />} />
       </Routes>
 
       <footer className="app-footer">
