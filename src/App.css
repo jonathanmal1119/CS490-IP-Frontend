@@ -92,7 +92,7 @@ body {
 .main-content {
   flex: 1;
   padding: 2rem 1rem;
-  max-width: 1400px;
+  max-width: 1800px; /* Increased from 1400px for wider layout */
   margin: 0 auto;
   width: 100%;
 }
@@ -101,7 +101,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  max-width: 1200px;
+  max-width: 1600px; /* Increased from 1200px for wider homepage layout */
   margin: 0 auto;
 }
 
@@ -638,6 +638,7 @@ body {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(59, 130, 246, 0.2);
   margin-bottom: 2rem;
+  display: flex;
 }
 
 .search-section h2 {
@@ -948,7 +949,7 @@ body {
 
 /* Customers Page Styles */
 .customers-page {
-  max-width: 1400px;
+  max-width: 1800px; /* Increased to match main-content width */
   margin: 0 auto;
 }
 
@@ -957,15 +958,41 @@ body {
   margin-bottom: 2rem;
 }
 
+.customers-title-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
 .customers-header h2 {
   font-size: 2.5rem;
   font-weight: 700;
   color: #f1f5f9;
-  margin-bottom: 0.5rem;
+  margin: 0;
   background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.add-customer-button {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  white-space: nowrap;
+}
+
+.add-customer-button:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
 .customers-count {
@@ -1075,7 +1102,7 @@ body {
 
 /* Customer Edit Page Styles */
 .customer-edit-page {
-  max-width: 1200px;
+  max-width: 1400px; /* Increased from 1200px for wider edit layout */
   margin: 0 auto;
 }
 
@@ -1285,6 +1312,93 @@ body {
   font-size: 0.9rem;
 }
 
+/* Customer Add Page Styles */
+.customer-add-page {
+  max-width: 1000px; /* Increased from 800px for wider add form */
+  margin: 0 auto;
+}
+
+.customer-add-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.customer-add-header h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin: 0;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.customer-add-container {
+  display: flex;
+  justify-content: center;
+}
+
+.customer-add-form-section {
+  background: rgba(26, 26, 46, 0.8);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  width: 100%;
+  max-width: 600px;
+}
+
+.customer-add-form-section h3 {
+  color: #f1f5f9;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+  padding-bottom: 0.5rem;
+}
+
+.customer-add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-select {
+  padding: 0.75rem;
+  border: 2px solid #374151;
+  border-radius: 0.5rem;
+  background: #1f2937;
+  color: #f1f5f9;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.form-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form-select option {
+  background: #1f2937;
+  color: #f1f5f9;
+}
+
 .customers-table-container {
   background: rgba(26, 26, 46, 0.8);
   border-radius: 20px;
@@ -1293,24 +1407,84 @@ body {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(59, 130, 246, 0.2);
   overflow-x: auto;
+  min-width: 0; /* Allow container to shrink */
 }
 
 .customers-table {
   width: 100%;
+  min-width: 1600px; /* Ensure minimum width for all columns */
   border-collapse: collapse;
   color: #e1e5e9;
+  table-layout: fixed; /* Use fixed layout for better control */
+}
+
+/* Define specific column widths - increased for better content display */
+.customers-table th:nth-child(1), /* ID */
+.customers-table td:nth-child(1) {
+  width: 80px;
+}
+
+.customers-table th:nth-child(2), /* Name */
+.customers-table td:nth-child(2) {
+  width: 200px;
+}
+
+.customers-table th:nth-child(3), /* Email */
+.customers-table td:nth-child(3) {
+  width: 250px;
+}
+
+.customers-table th:nth-child(4), /* Phone */
+.customers-table td:nth-child(4) {
+  width: 150px;
+}
+
+.customers-table th:nth-child(5), /* Address */
+.customers-table td:nth-child(5) {
+  width: 220px;
+}
+
+.customers-table th:nth-child(6), /* City */
+.customers-table td:nth-child(6) {
+  width: 130px;
+}
+
+.customers-table th:nth-child(7), /* District/State */
+.customers-table td:nth-child(7) {
+  width: 150px;
+}
+
+.customers-table th:nth-child(8), /* Country */
+.customers-table td:nth-child(8) {
+  width: 130px;
+}
+
+.customers-table th:nth-child(9), /* Status */
+.customers-table td:nth-child(9) {
+  width: 100px;
+}
+
+.customers-table th:nth-child(10), /* Member Since */
+.customers-table td:nth-child(10) {
+  width: 140px;
+}
+
+.customers-table th:nth-child(11), /* Actions */
+.customers-table td:nth-child(11) {
+  width: 120px;
 }
 
 .customers-table th {
   color: #f1f5f9;
-  padding: 1rem;
+  padding: 1.25rem 1rem; /* Increased padding */
   text-align: left;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.95rem; /* Slightly larger font */
   border-bottom: 2px solid rgba(59, 130, 246, 0.3);
   position: sticky;
   top: 0;
   z-index: 10;
+  white-space: nowrap; /* Prevent header text wrapping */
 }
 
 .customers-table th:first-child {
@@ -1331,9 +1505,29 @@ body {
 }
 
 .customer-row td {
-  padding: 1rem;
-  font-size: 0.9rem;
+  padding: 1.25rem 1rem; /* Increased padding to match headers */
+  font-size: 0.95rem; /* Slightly larger font */
   vertical-align: middle;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  line-height: 1.4; /* Better line spacing */
+}
+
+/* Specific styling for different column types */
+.customers-table td:nth-child(3), /* Email */
+.customers-table td:nth-child(5) { /* Address */
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+.customers-table td:nth-child(1) { /* ID */
+  text-align: center;
+  font-weight: 600;
+}
+
+.customers-table td:nth-child(11) { /* Actions */
+  text-align: center;
 }
 
 .customer-name {
@@ -1405,12 +1599,73 @@ body {
 @media (max-width: 768px) {
   .customers-table-container {
     padding: 1rem;
+    overflow-x: auto;
+  }
+  
+  .customers-table {
+    min-width: 1300px; /* Larger minimum width for mobile too */
   }
   
   .customers-table th,
   .customers-table td {
     padding: 0.75rem 0.5rem;
     font-size: 0.8rem;
+  }
+  
+  /* Adjust column widths for mobile - proportionally larger */
+  .customers-table th:nth-child(1), /* ID */
+  .customers-table td:nth-child(1) {
+    width: 70px;
+  }
+
+  .customers-table th:nth-child(2), /* Name */
+  .customers-table td:nth-child(2) {
+    width: 160px;
+  }
+
+  .customers-table th:nth-child(3), /* Email */
+  .customers-table td:nth-child(3) {
+    width: 200px;
+  }
+
+  .customers-table th:nth-child(4), /* Phone */
+  .customers-table td:nth-child(4) {
+    width: 130px;
+  }
+
+  .customers-table th:nth-child(5), /* Address */
+  .customers-table td:nth-child(5) {
+    width: 180px;
+  }
+
+  .customers-table th:nth-child(6), /* City */
+  .customers-table td:nth-child(6) {
+    width: 110px;
+  }
+
+  .customers-table th:nth-child(7), /* District/State */
+  .customers-table td:nth-child(7) {
+    width: 120px;
+  }
+
+  .customers-table th:nth-child(8), /* Country */
+  .customers-table td:nth-child(8) {
+    width: 110px;
+  }
+
+  .customers-table th:nth-child(9), /* Status */
+  .customers-table td:nth-child(9) {
+    width: 120px;
+  }
+
+  .customers-table th:nth-child(10), /* Member Since */
+  .customers-table td:nth-child(10) {
+    width: 120px;
+  }
+
+  .customers-table th:nth-child(11), /* Actions */
+  .customers-table td:nth-child(11) {
+    width: 100px;
   }
   
   .customers-header h2 {
@@ -1450,6 +1705,27 @@ body {
   
   .form-actions {
     flex-direction: column;
+  }
+  
+  .customers-title-section {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .customer-add-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  
+  .customer-add-header h2 {
+    font-size: 2rem;
+  }
+  
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
   
   .pagination {

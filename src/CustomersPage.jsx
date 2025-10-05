@@ -61,6 +61,10 @@ function CustomersPage() {
     navigate(`/customer/${customerId}/edit`)
   }
 
+  const handleAddCustomer = () => {
+    navigate('/customers/add')
+  }
+
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString()
   }
@@ -86,7 +90,12 @@ function CustomersPage() {
     <main className="main-content">
       <div className="customers-page">
         <div className="customers-header">
-          <h2>Customers</h2>
+          <div className="customers-title-section">
+            <h2>Customers</h2>
+            <button onClick={handleAddCustomer} className="add-customer-button">
+              + Add Customer
+            </button>
+          </div>
           <p className="customers-count">
             Showing {customers.length} of {pagination.totalCustomers} customers
             {searchTerm && (
@@ -128,8 +137,10 @@ function CustomersPage() {
                 <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Phone</th>
                 <th>Address</th>
                 <th>City</th>
+                <th>District/State</th>
                 <th>Country</th>
                 <th>Status</th>
                 <th>Member Since</th>
@@ -144,8 +155,10 @@ function CustomersPage() {
                     {customer.first_name} {customer.last_name}
                   </td>
                   <td>{customer.email}</td>
+                  <td>{customer.phone || 'N/A'}</td>
                   <td>{customer.address}</td>
                   <td>{customer.city}</td>
+                  <td>{customer.district}</td>
                   <td>{customer.country}</td>
                   <td>
                     <span className={`status-badge ${customer.active ? 'active' : 'inactive'}`}>

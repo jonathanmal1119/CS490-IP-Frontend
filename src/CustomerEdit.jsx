@@ -16,6 +16,7 @@ function CustomerEdit() {
     first_name: '',
     last_name: '',
     email: '',
+    phone: '',
     active: true
   })
 
@@ -33,6 +34,7 @@ function CustomerEdit() {
         first_name: data.first_name,
         last_name: data.last_name,
         email: data.email,
+        phone: data.phone || '',
         active: Boolean(data.active)
       })
     } catch (e) {
@@ -130,7 +132,7 @@ function CustomerEdit() {
                   <span className="info-value">{customer.address}</span>
                 </div>
                 <div className="info-item">
-                  <span className="info-label">District:</span>
+                  <span className="info-label">District/State:</span>
                   <span className="info-value">{customer.district}</span>
                 </div>
                 <div className="info-item">
@@ -191,6 +193,19 @@ function CustomerEdit() {
                     onChange={handleInputChange}
                     required
                     className="form-input"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="phone">Phone Number:</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="form-input"
+                    placeholder="Enter phone number (optional)"
                   />
                 </div>
 

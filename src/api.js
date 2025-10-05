@@ -49,6 +49,11 @@ export const api = {
     method: 'PUT',
     body: JSON.stringify(customerData)
   }),
+  createCustomer: (customerData) => http(`/customers`, {
+    method: 'POST',
+    body: JSON.stringify(customerData)
+  }),
+  getCountries: () => http(`/customers/countries`),
   searchFilms: (query, type) => http(`/films/search?query=${encodeURIComponent(query)}&type=${type}`),
   getRecentFilms: (limit = 15) => http(`/films/recent?limit=${limit}`),
 }
