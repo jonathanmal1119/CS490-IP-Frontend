@@ -60,4 +60,9 @@ export const api = {
   }),
   searchFilms: (query, type) => http(`/films/search?query=${encodeURIComponent(query)}&type=${type}`),
   getRecentFilms: (limit = 15) => http(`/films/recent?limit=${limit}`),
+  checkFilmInventory: (filmId) => http(`/films/${filmId}/inventory`),
+  rentFilm: (filmId, customerId) => http(`/films/${filmId}/rent`, {
+    method: 'POST',
+    body: JSON.stringify({ customer_id: customerId })
+  }),
 }

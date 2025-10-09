@@ -10,6 +10,11 @@ function FilmDetails() {
   const [filmDetails, setFilmDetails] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [customerId, setCustomerId] = useState('')
+  const [renting, setRenting] = useState(false)
+  const [rentalError, setRentalError] = useState(null)
+  const [rentalSuccess, setRentalSuccess] = useState(null)
+  const [inventoryAvailable, setInventoryAvailable] = useState(null)
 
   useEffect(() => {
     async function loadFilmDetails() {
@@ -17,6 +22,10 @@ function FilmDetails() {
         setLoading(true)
         const details = await api.getFilmDetails(id)
         setFilmDetails(details)
+        
+        // Check inventory availability
+        const inventory = await api.checkFilmInventory(id)
+        setInventoryAvailable(inventory.available)
       } catch (e) {
         setError(e?.message || 'Failed to load film details')
         console.error('Error loading film details:', e)
@@ -27,6 +36,45 @@ function FilmDetails() {
     
     loadFilmDetails()
   }, [id])
+
+  const handleRentFilm = async (e) => {
+    e.preventDefault()
+    
+    setRentalError(null)
+    setRentalSuccess(null)
+    
+    if (!customerId || !customerId.trim()) {
+      setRentalError('Please enter a customer ID')
+      return
+    }
+    
+    const customerIdNum = parseInt(customerId)
+    if (isNaN(customerIdNum) || customerIdNum <= 0) {
+      setRentalError('Please enter a valid customer ID')
+      return
+    }
+    
+    try {
+      setRenting(true)
+      const result = await api.rentFilm(id, customerIdNum)
+      setRentalSuccess(`Film rented successfully! Rental ID: ${result.rental_id}`)
+      setCustomerId('')
+      
+      // Refresh inventory status
+      const inventory = await api.checkFilmInventory(id)
+      setInventoryAvailable(inventory.available)
+      
+      // Clear success message after 5 seconds
+      setTimeout(() => {
+        setRentalSuccess(null)
+      }, 5000)
+    } catch (e) {
+      setRentalError(e?.message || 'Failed to rent film')
+      console.error('Error renting film:', e)
+    } finally {
+      setRenting(false)
+    }
+  }
 
   const goBack = () => {
     // Check if we came from the films page
@@ -138,6 +186,42 @@ function FilmDetails() {
                 <span key={actor.id} className="actor-tag">{actor.name}</span>
               ))}
             </div>
+          </div>
+
+          <div className="rental-section">
+            <h3>Rent This Film</h3>
+            
+            {inventoryAvailable !== null && (
+              <div className={`availability-status ${inventoryAvailable ? 'available' : 'unavailable'}`}>
+                {inventoryAvailable ? '✓ Available for rent' : '✗ Currently unavailable'}
+              </div>
+            )}
+            
+            {rentalError && <div className="error-message">{rentalError}</div>}
+            {rentalSuccess && <div className="success-message">{rentalSuccess}</div>}
+            
+            <form onSubmit={handleRentFilm} className="rental-form">
+              <div className="form-group">
+                <label htmlFor="customerId">Customer ID:</label>
+                <input
+                  type="number"
+                  id="customerId"
+                  value={customerId}
+                  onChange={(e) => setCustomerId(e.target.value)}
+                  placeholder="Enter customer ID"
+                  className="form-input"
+                  disabled={!inventoryAvailable || renting}
+                  min="1"
+                />
+              </div>
+              <button
+                type="submit"
+                className="rent-button"
+                disabled={!inventoryAvailable || renting}
+              >
+                {renting ? 'Processing...' : 'Rent Film'}
+              </button>
+            </form>
           </div>
         </div>
       </div>
