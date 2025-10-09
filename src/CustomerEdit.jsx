@@ -9,8 +9,11 @@ function CustomerEdit() {
   const [customer, setCustomer] = useState(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [deleting, setDeleting] = useState(false)
   const [error, setError] = useState(null)
   const [successMessage, setSuccessMessage] = useState('')
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [rentalCheck, setRentalCheck] = useState(null)
   
   const [formData, setFormData] = useState({
     first_name: '',
@@ -89,6 +92,61 @@ function CustomerEdit() {
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString()
+  }
+
+  const checkRentals = async () => {
+    try {
+      const rentalData = await api.checkCustomerRentals(id)
+      setRentalCheck(rentalData)
+      return rentalData
+    } catch (e) {
+      console.error('Error checking rentals:', e)
+      setError('Failed to check customer rentals')
+      return null
+    }
+  }
+
+  const handleDeleteClick = async () => {
+    try {
+      setError(null)
+      const rentalData = await checkRentals()
+      
+      if (rentalData && rentalData.hasActiveRentals) {
+        setError(`Cannot delete customer. Customer has ${rentalData.activeRentalCount} active rental(s).`)
+        return
+      }
+      
+      setShowDeleteConfirm(true)
+    } catch (e) {
+      setError(e?.message || 'Failed to check customer rentals')
+    }
+  }
+
+  const handleDeleteConfirm = async () => {
+    try {
+      setDeleting(true)
+      setError(null)
+      
+      await api.deleteCustomer(id)
+      setSuccessMessage('Customer deleted successfully!')
+      
+      // Navigate back to customers list after a short delay
+      setTimeout(() => {
+        navigate('/customers')
+      }, 1500)
+      
+    } catch (e) {
+      setError(e?.message || 'Failed to delete customer')
+      console.error('Error deleting customer:', e)
+    } finally {
+      setDeleting(false)
+      setShowDeleteConfirm(false)
+    }
+  }
+
+  const handleDeleteCancel = () => {
+    setShowDeleteConfirm(false)
+    setRentalCheck(null)
   }
 
   if (loading) {
@@ -238,12 +296,51 @@ function CustomerEdit() {
                   >
                     Cancel
                   </button>
+                  <button
+                    type="button"
+                    onClick={handleDeleteClick}
+                    disabled={deleting}
+                    className="delete-button"
+                  >
+                    {deleting ? 'Deleting...' : 'Delete Customer'}
+                  </button>
                 </div>
               </form>
             </div>
           </div>
         )}
       </div>
+
+      {/* Delete Confirmation Dialog */}
+      {showDeleteConfirm && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Confirm Customer Deletion</h3>
+            <p>
+              Are you sure you want to delete customer <strong>{customer?.first_name} {customer?.last_name}</strong>?
+            </p>
+            <p className="warning-text">
+              This action cannot be undone. All customer data will be permanently removed.
+            </p>
+            <div className="modal-actions">
+              <button
+                onClick={handleDeleteConfirm}
+                disabled={deleting}
+                className="confirm-delete-button"
+              >
+                {deleting ? 'Deleting...' : 'Yes, Delete Customer'}
+              </button>
+              <button
+                onClick={handleDeleteCancel}
+                disabled={deleting}
+                className="cancel-delete-button"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   )
 }

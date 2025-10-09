@@ -54,6 +54,10 @@ export const api = {
     body: JSON.stringify(customerData)
   }),
   getCountries: () => http(`/customers/countries`),
+  checkCustomerRentals: (id) => http(`/customers/${id}/rentals`),
+  deleteCustomer: (id) => http(`/customers/${id}`, {
+    method: 'DELETE'
+  }),
   searchFilms: (query, type) => http(`/films/search?query=${encodeURIComponent(query)}&type=${type}`),
   getRecentFilms: (limit = 15) => http(`/films/recent?limit=${limit}`),
 }
