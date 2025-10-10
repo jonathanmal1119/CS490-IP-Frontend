@@ -7,6 +7,7 @@ import FilmsPage from './FilmsPage'
 import CustomersPage from './CustomersPage'
 import CustomerEdit from './CustomerEdit'
 import CustomerAdd from './CustomerAdd'
+import RentalHistory from './RentalHistory'
 import './App.css'
 
 function App() {
@@ -73,6 +74,7 @@ function App() {
         <Route path="/actor/:id" element={<ActorDetails />} />
         <Route path="/customers" element={<CustomersPage />} />
         <Route path="/customer/:id/edit" element={<CustomerEdit />} />
+        <Route path="/customer/:id/rental-history" element={<RentalHistory />} />
         <Route path="/customers/add" element={<CustomerAdd />} />
       </Routes>
 

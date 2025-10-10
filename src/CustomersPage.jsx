@@ -61,6 +61,10 @@ function CustomersPage() {
     navigate(`/customer/${customerId}/edit`)
   }
 
+  const handleViewHistory = (customerId) => {
+    navigate(`/customer/${customerId}/rental-history`)
+  }
+
   const handleAddCustomer = () => {
     navigate('/customers/add')
   }
@@ -167,13 +171,22 @@ function CustomersPage() {
                   </td>
                   <td>{formatDate(customer.create_date)}</td>
                   <td>
-                    <button
-                      onClick={() => handleEditCustomer(customer.id)}
-                      className="edit-customer-button"
-                      title="Edit Customer"
-                    >
-                      Edit
-                    </button>
+                    <div className="action-buttons">
+                      <button
+                        onClick={() => handleEditCustomer(customer.id)}
+                        className="edit-customer-button"
+                        title="Edit Customer"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleViewHistory(customer.id)}
+                        className="view-history-button-small"
+                        title="View Rental History"
+                      >
+                        History
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
