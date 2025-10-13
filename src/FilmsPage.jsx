@@ -74,9 +74,9 @@ function FilmsPage() {
     <main className="main-content">
       <div className="films-page-container">
         <section className="search-section">
-          <h2>Search Films</h2>
-          <form onSubmit={handleSearch} className="search-form">
-            <div className="search-inputs">
+          <h2 className="search-title">Search Films</h2>
+          <form onSubmit={handleSearch} className="search-form films-search-form">
+            <div className="search-controls-row">
               <select 
                 value={searchType} 
                 onChange={(e) => setSearchType(e.target.value)}
