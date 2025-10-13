@@ -40,9 +40,10 @@ export const api = {
   getTopActors: (limit = 5) => http(`/actors/top?limit=${limit}`),
   getFilmDetails: (id) => http(`/films/${id}`),
   getActorDetails: (id) => http(`/actors/${id}`),
-  getCustomers: (page = 1, limit = 20, search = '') => {
+  getCustomers: (page = 1, limit = 20, search = '', searchType = 'id') => {
     const searchParam = search ? `&search=${encodeURIComponent(search)}` : '';
-    return http(`/customers?page=${page}&limit=${limit}${searchParam}`);
+    const searchTypeParam = search ? `&searchType=${searchType}` : '';
+    return http(`/customers?page=${page}&limit=${limit}${searchParam}${searchTypeParam}`);
   },
   getCustomerById: (id) => http(`/customers/${id}`),
   updateCustomer: (id, customerData) => http(`/customers/${id}`, {

@@ -11,13 +11,14 @@ function CustomersPage() {
   const [currentPage, setCurrentPage] = useState(1)
   const [searchTerm, setSearchTerm] = useState('')
   const [searchInput, setSearchInput] = useState('')
+  const [searchType, setSearchType] = useState('id')
   const navigate = useNavigate()
 
-  const loadCustomers = async (page = 1, search = '') => {
+  const loadCustomers = async (page = 1, search = '', type = 'id') => {
     try {
       setLoading(true)
       setError(null)
-      const data = await api.getCustomers(page, 20, search)
+      const data = await api.getCustomers(page, 20, search, type)
       setCustomers(data.customers)
       setPagination(data.pagination)
       setCurrentPage(page)
@@ -30,15 +31,15 @@ function CustomersPage() {
   }
 
   useEffect(() => {
-    loadCustomers(1, searchTerm)
-  }, [searchTerm])
+    loadCustomers(1, searchTerm, searchType)
+  }, [searchTerm, searchType])
 
   const goBack = () => {
     navigate('/')
   }
 
   const handlePageChange = (page) => {
-    loadCustomers(page, searchTerm)
+    loadCustomers(page, searchTerm, searchType)
   }
 
   const handleSearch = (e) => {
@@ -100,20 +101,26 @@ function CustomersPage() {
               + Add Customer
             </button>
           </div>
-          <p className="customers-count">
-            Showing {customers.length} of {pagination.totalCustomers} customers
-            {searchTerm && (
-              <span className="search-indicator"> (filtered by "{searchTerm}")</span>
-            )}
-          </p>
+          
         </div>
 
         <div className="search-section">
-          <form onSubmit={handleSearch} className="search-form">
-            <div className="search-input-container">
+          <h2 className="search-title">Search Customers</h2>
+          
+          <form onSubmit={handleSearch} className="search-form customers-search-form">
+            <div className="search-controls-row">
+              <select 
+                value={searchType} 
+                onChange={(e) => setSearchType(e.target.value)}
+                className="search-type-select"
+              >
+                <option value="id">By Customer ID</option>
+                <option value="firstName">By First Name</option>
+                <option value="lastName">By Last Name</option>
+              </select>
               <input
                 type="text"
-                placeholder="Search by customer ID, first name, or last name..."
+                placeholder={`Search ${searchType === 'id' ? 'customer IDs' : searchType === 'firstName' ? 'first names' : searchType === 'lastName' ? 'last names' : 'customers'}...`}
                 value={searchInput}
                 onChange={handleSearchInputChange}
                 className="search-input"
@@ -125,7 +132,7 @@ function CustomersPage() {
                 <button
                   type="button"
                   onClick={handleClearSearch}
-                  className="clear-search-button"
+                  className="clear-button"
                 >
                   Clear
                 </button>
@@ -133,7 +140,13 @@ function CustomersPage() {
             </div>
           </form>
         </div>
-
+        
+        <p className="customers-count">
+            Showing {customers.length} of {pagination.totalCustomers} customers
+            {searchTerm && (
+              <span className="search-indicator"> (filtered by "{searchTerm}")</span>
+            )}
+          </p>
         <div className="customers-table-container">
           <table className="customers-table">
             <thead>
