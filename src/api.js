@@ -65,5 +65,8 @@ export const api = {
     method: 'POST',
     body: JSON.stringify({ customer_id: customerId })
   }),
+  returnFilm: (rentalId) => http(`/films/rentals/${rentalId}/return`, {
+    method: 'PUT'
+  }),
   getCustomerRentalHistory: (customerId) => http(`/customers/${customerId}/rental-history`),
 }

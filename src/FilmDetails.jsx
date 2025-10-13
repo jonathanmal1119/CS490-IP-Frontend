@@ -137,7 +137,7 @@ function FilmDetails() {
             <div className="info-section">
               <h3>Film Information</h3>
               <div className="info-item">
-                <strong>Description:</strong>
+                <strong>About:</strong>
                 <p>{filmDetails.description}</p>
               </div>
               <div className="info-item">

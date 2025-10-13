@@ -146,7 +146,6 @@ function HomePage() {
               <div key={film.id} className="card film-card">
                 <h3>{film.title}</h3>
                 <p className="genre">{film.genre}</p>
-                <p className="year">Released: {film.releaseYear}</p>
                 <p className="rental-count">
                   <strong>{film.rentalCount}</strong> rentals
                 </p>

@@ -10,6 +10,9 @@ function RentalHistory() {
   const [rentalHistory, setRentalHistory] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [returningRental, setReturningRental] = useState(null)
+  const [returnSuccess, setReturnSuccess] = useState(null)
+  const [returnError, setReturnError] = useState(null)
 
   useEffect(() => {
     loadCustomerAndHistory()
@@ -45,6 +48,31 @@ function RentalHistory() {
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString()
+  }
+
+  const handleReturnFilm = async (rentalId) => {
+    try {
+      setReturningRental(rentalId)
+      setReturnError(null)
+      setReturnSuccess(null)
+      
+      await api.returnFilm(rentalId)
+      setReturnSuccess('Film returned successfully!')
+      
+      // Reload rental history to reflect the change
+      const historyData = await api.getCustomerRentalHistory(id)
+      setRentalHistory(historyData)
+      
+      // Clear success message after 3 seconds
+      setTimeout(() => {
+        setReturnSuccess(null)
+      }, 3000)
+    } catch (e) {
+      setReturnError(e?.message || 'Failed to return film')
+      console.error('Error returning film:', e)
+    } finally {
+      setReturningRental(null)
+    }
   }
 
   if (loading) {
@@ -121,6 +149,10 @@ function RentalHistory() {
           </div>
         </div>
 
+        {/* Success/Error Messages */}
+        {returnSuccess && <div className="success-message">{returnSuccess}</div>}
+        {returnError && <div className="error-message">{returnError}</div>}
+
         {/* Active Rentals */}
         {activeRentals.length > 0 && (
           <div className="rentals-section active-rentals">
@@ -135,6 +167,7 @@ function RentalHistory() {
                     <th>Expected Duration</th>
                     <th>Rate</th>
                     <th>Status</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -149,6 +182,16 @@ function RentalHistory() {
                         <span className="status-badge active">
                           {rental.status}
                         </span>
+                      </td>
+                      <td>
+                        <button
+                          onClick={() => handleReturnFilm(rental.rental_id)}
+                          disabled={returningRental === rental.rental_id}
+                          className="return-film-button"
+                          title="Return this film"
+                        >
+                          {returningRental === rental.rental_id ? 'Returning...' : 'Return'}
+                        </button>
                       </td>
                     </tr>
                   ))}
