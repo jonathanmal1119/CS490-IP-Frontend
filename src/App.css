@@ -418,6 +418,23 @@ body {
   margin-bottom: 1rem;
 }
 
+.info-item-desc{
+  border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+.info-item-desc strong{
+  color: #3b82f6;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.info-item-desc p {
+  color: #e1e5e9;
+  line-height: 1.5;
+  padding-bottom: 1rem;
+}
+
 .info-item strong {
   color: #3b82f6;
   font-weight: 600;
@@ -1893,7 +1910,6 @@ body {
 }
 
 .availability-status {
-  padding: 0.75rem 1rem;
   border-radius: 8px;
   margin-bottom: 1.5rem;
   font-weight: 600;
@@ -1901,15 +1917,11 @@ body {
 }
 
 .availability-status.available {
-  background: rgba(16, 185, 129, 0.15);
   color: #10b981;
-  border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .availability-status.unavailable {
-  background: rgba(239, 68, 68, 0.15);
   color: #ef4444;
-  border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 .rental-form {
@@ -2375,4 +2387,10 @@ body {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
+}
+
+.rental-title-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

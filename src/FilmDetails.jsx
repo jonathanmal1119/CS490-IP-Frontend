@@ -136,8 +136,8 @@ function FilmDetails() {
           <div className="film-info-grid">
             <div className="info-section">
               <h3>Film Information</h3>
-              <div className="info-item">
-                <strong>About:</strong>
+              <div className="info-item-desc">
+                <strong>Description:</strong>
                 <p>{filmDetails.description}</p>
               </div>
               <div className="info-item">
@@ -189,13 +189,16 @@ function FilmDetails() {
           </div>
 
           <div className="rental-section">
-            <h3>Rent This Film</h3>
+            <div className="rental-title-section">
+              <h3>Rent This Film</h3>
+              
+              {inventoryAvailable !== null && (
+                <div className={`availability-status ${inventoryAvailable ? 'available' : 'unavailable'}`}>
+                  {inventoryAvailable ? 'Available to Rent' : 'Unavailable to Rent'}
+                </div>
+              )}
             
-            {inventoryAvailable !== null && (
-              <div className={`availability-status ${inventoryAvailable ? 'available' : 'unavailable'}`}>
-                {inventoryAvailable ? '✓ Available for rent' : '✗ Currently unavailable'}
-              </div>
-            )}
+            </div>
             
             {rentalError && <div className="error-message">{rentalError}</div>}
             {rentalSuccess && <div className="success-message">{rentalSuccess}</div>}
